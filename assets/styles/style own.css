@@ -37,3 +37,7 @@
 .menuCard{
     min-height:82vh;
 }
+table{
+    text-align: center;
+    max-width:80vw ;
+}
