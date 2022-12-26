@@ -4,6 +4,32 @@
     box-sizing: border-box;
 }
 .iconos{
-    min-width: 50vw;
+    min-width: 30vw;
+}
+.navegador{
+    min-width: 35%;
+}
+.orden p{
+    display: inline;
+}
+.cartas img{
+    height: 7rem;
+}
+.card-body>h5{
     text-align: center;
+    height: 20%;
+}
+.card-body>p{
+    text-align: center;
+    height: 50%;
+}
+.card-body>div{
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 15%;
+}
+.card-body a{
+    padding: 0.3rem;
+    height: 3rem;
 }
