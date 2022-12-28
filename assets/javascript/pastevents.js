@@ -11,8 +11,9 @@ function upcomingEvents1(events,dat){
 }
 
 function eventosString(card,space){
+    let template="";
     for(let dato of card){
-    space.innerHTML+=`<div class="card col-6 mb-3 p-1" style="width: 12rem;">
+    template+=`<div class="card col-6 mb-3 p-1" style="width: 12rem;">
                         <img src="${dato.image}" class="card-img-top" alt="collectivitiesParty">
                         <div class="card-body p-0 text-center d-flex flex-column justify-content-between">
                           <div>
@@ -26,6 +27,7 @@ function eventosString(card,space){
                         </div>
                       </div>`;
     }
+    space.innerHTML=template;
   }
 //llamada de funciones
 let arrEvents=upcomingEvents1(data.events,data.currentDate)
