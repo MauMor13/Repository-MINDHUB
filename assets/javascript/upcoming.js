@@ -15,7 +15,7 @@ function eventosString(card,space){
   let template="";
   for(let dato of card){
   template+=`<div class="card col-6 mb-3 p-1" style="width: 12rem;">
-                      <img src="${dato.image}" class="card-img-top" alt="collectivitiesParty">
+                      <img src="${dato.image}" class="card-img-top" alt="${dato.name}">
                       <div class="card-body p-0 text-center d-flex flex-column justify-content-between">
                         <div>
                           <h5 class="card-title m-0 pt-2">${dato.name}</h5>
