@@ -1,8 +1,10 @@
 let lugar = document.getElementById("cardsHome");
+let checkBox=document.getElementById("checkbox");
+let buscarCards=document.getElementById("buscar");
 
-function eventosString(card,space){
+function incertarEventos(cards,space){
   let template="";
-  for(let dato of card){
+  for(let dato of cards){
   template+=`<div class="card col-6 mb-3 p-1" style="width: 12rem;">
                       <img src="${dato.image}" class="card-img-top" alt="${dato.name}">
                       <div class="card-body p-0 text-center d-flex flex-column justify-content-between">
@@ -12,11 +14,11 @@ function eventosString(card,space){
                         </div>
                         <div class="d-flex justify-content-around align-items-center">
                           <p class="m-0">Price $${dato.price}</p>
-                          <a href="./description.html" class="btn btn-primary p-1">See more</a>
+                          <a href="./details.html?id=${dato._id}" class="btn btn-primary p-1">See more</a>
                         </div>
                       </div>
                     </div>`;
   }
   space.innerHTML=template;
 }
-eventosString(data.events,lugar);
+incertarEventos(data.events,lugar);
