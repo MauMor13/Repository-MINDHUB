@@ -32,3 +32,4 @@ function incertarEventos(cards,space){
 //llamada de funciones
 let arrEvents=upcomingEvents1(data.events,data.currentDate)
 incertarEventos(arrEvents,lugar);
+
