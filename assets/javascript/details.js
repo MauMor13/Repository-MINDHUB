@@ -21,8 +21,13 @@ function incertarEventos(card,space){
         <div class="card-body text-center">
           <h3 class="card-title">${card.name}</h3>
           <p class="card-text">${card.description}</p>
-          <p class="card-text">${card.category}</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <div class="row gy-5">
+          <p class="card-text col-3"> ${card.category}</p>
+          <p class="card-text col-3">${card.place}</p>
+          <p class="card-text col-3">${card.capacity}</p>
+          <p class="card-text col-3">${card.asistance}</p>
+          </div>
+          <p class="card-text"><small class="text-muted">${card.price}</small></p>
         </div>
       </div>
     </div>
