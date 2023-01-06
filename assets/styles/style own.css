@@ -24,3 +24,10 @@ table{
     text-align: center;
     max-width:80vw ;
 }
+.fondoDetails{
+    background-color: rgba(21, 116, 145, 0.769);
+    min-height: 86vh;
+}
+.imagenCards{
+    min-height: 100%;
+}
