@@ -1,30 +1,33 @@
 const lugar = document.getElementById("cardsUpcoming");//donde van las cards
 const checkBox=document.getElementById("checkBox");//id de contenedor de checkbox´s
 const buscarCards=document.getElementById("buscar");//id de contenedor de busqueda
-const todasLasCards=data.events;//todas las cardas referenciadas 
-
+let todasLasCards;//todas las cardas referenciadas 
+fetch("https://mindhub-xj03.onrender.com/api/amazing")//recuperar data por fetch
+.then(data=>data.json())
+.then(res=>{
+  todasLasCards=res;
+  incertarCheckbox(checkBox,todasLasCards.events);
+  filtroCrusados();
+  checkBox.addEventListener('change',filtroCrusados);//escucha eventos changue
+  buscarCards.addEventListener('input',filtroCrusados);//escucha eventos input busqueda
+})
+.catch(err=>console.log(err));
 //funcion para checkbox dinamico
-incertarCheckbox(checkBox,todasLasCards);
 function incertarCheckbox(lugarDelDom,todasLasCards){
   let template="";
-  let categorias=todasLasCards.map((todasLasCards)=>todasLasCards.category);
+  let categorias=todasLasCards.map((todasLasCard)=>todasLasCard.category);
   let categoriasFiltradas=categorias.filter((ele,pos)=>categorias.indexOf(ele) == pos);
-  console.log(categoriasFiltradas);
   for(let catego of categoriasFiltradas){
   template+=`
   <div class="form-check form-check-inline" >
-  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="${catego}">
-  <label class="form-check-label" for="inlineCheckbox1">${catego}</label>
+  <label class="form-check-label">
+  <input class="form-check-input" type="checkbox" value="${catego}">
+  ${catego}</label>
 </div>
   `;
   }
   lugarDelDom.innerHTML=template;
 }
-
-//escucha eventos
-checkBox.addEventListener('change',filtroCrusados);
-buscarCards.addEventListener('input',filtroCrusados);
-
 //funcion para filtrar por categoria-tema
 function filtroPorCategoria(cardsFiltradas){
   let checkbox = Array.from(document.querySelectorAll( 'input[type="checkbox"]:checked' ));
@@ -35,15 +38,13 @@ function filtroPorCategoria(cardsFiltradas){
 function filtroPorBuscar(entradaDeBusqueda,todasLasCards){
   return todasLasCards.filter(cards=>cards.name.toLowerCase().includes(entradaDeBusqueda.value.toLowerCase()))
 }
-//llamado de funcion para iniciar con 14 cards
-filtroCrusados();
 //funcion de filtrado crusado
 function filtroCrusados(){
-  let filtroPorBusqueda=filtroPorBuscar(buscarCards,todasLasCards);
+  let filtroPorBusqueda=filtroPorBuscar(buscarCards,todasLasCards.events);
   //console.log(filtroPorBusqueda);
   let filtrados=filtroPorCategoria(filtroPorBusqueda);
   //console.log(filtrados)
-  incertarEventos((filtrarCardPorFecha(filtrados,data.currentDate)),lugar);
+  incertarEventos((filtrarCardPorFecha(filtrados,todasLasCards.currentDate)),lugar);
 }
 //funcion para filtrar por las fechas
 function filtrarCardPorFecha(events,dat){

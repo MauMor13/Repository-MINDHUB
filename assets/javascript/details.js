@@ -1,83 +1,80 @@
-let cadenaUrl = location.search;
-
+let mainCards= document.getElementById("detalleCards");
+let cadenaUrl = location.search;//lee la url actual
 let parametro = new URLSearchParams(cadenaUrl); 
-
 let id = parametro.get("id");
-
-let mainCards= document.getElementById("detalleCards")
-
-let todasLasCards=data.events;
-
-let cardFiltrada= todasLasCards.find(todasLasCards=>todasLasCards._id==id);
-
-function incertarEventos(card,space){
-  if(card.assistance!=undefined){
-    space.innerHTML=`
+let todasLasCards;
+fetch("https://mindhub-xj03.onrender.com/api/amazing")//recuperar data por fetch
+.then(data=>data.json())
+.then(res=>{
+  todasLasCards=res;
+  let cardFiltrada= todasLasCards.events.find(card=>card._id==id);
+  if(cardFiltrada.assistance!=undefined){
+    mainCards.innerHTML=`
     <div class="card m-4 bg-dark text-light" >
     <div class="row">
         <div class="col-md-4 d-flex justify-content-center">
-            <img src="${card.image}" class="img-fluid rounded-start imagenCards" alt="${card.name}">
+            <img src="${cardFiltrada.image}" class="img-fluid rounded-start imagenCards" alt="${cardFiltrada.name}">
         </div>
       <div class="col-md-8">
         <div class="card-body text-center">
-          <h3 class="card-title">${card.name}</h3>
-          <p class="card-text">${card.description}</p>
+          <h3 class="card-title">${cardFiltrada.name}</h3>
+          <p class="card-text">${cardFiltrada.description}</p>
           <div class="row gy-5">
-          <p class="card-text col-3">Category: ${card.category}</p>
-          <p class="card-text col-3">Place: ${card.place}</p>
-          <p class="card-text col-3">Capacity: ${card.capacity}</p>
-          <p class="card-text col-3">Asistance: ${card.assistance}</p>
+          <p class="card-text col-3">Category: ${cardFiltrada.category}</p>
+          <p class="card-text col-3">Place: ${cardFiltrada.place}</p>
+          <p class="card-text col-3">Capacity: ${cardFiltrada.capacity}</p>
+          <p class="card-text col-3">Asistance: ${cardFiltrada.assistance}</p>
           </div>
-          <p class="card-text text-primary">Price: $ ${card.price}</p>
+          <p class="card-text text-primary">Price: $ ${cardFiltrada.price}</p>
         </div>
       </div>
     </div>
   </div>
     `;}
-    else if(card.estimate!=undefined){
-      space.innerHTML=`
+    else if(cardFiltrada.estimate!=undefined){
+      mainCards.innerHTML=`
       <div class="card m-4 bg-dark text-light" >
       <div class="row">
           <div class="col-md-4 d-flex justify-content-center">
-              <img src="${card.image}" class="img-fluid rounded-start imagenCards" alt="${card.name}">
+              <img src="${cardFiltrada.image}" class="img-fluid rounded-start imagenCards" alt="${cardFiltrada.name}">
           </div>
         <div class="col-md-8">
           <div class="card-body text-center">
-            <h3 class="card-title">${card.name}</h3>
-            <p class="card-text">${card.description}</p>
+            <h3 class="card-title">${cardFiltrada.name}</h3>
+            <p class="card-text">${cardFiltrada.description}</p>
             <div class="row gy-5">
-            <p class="card-text col-3">Category: ${card.category}</p>
-            <p class="card-text col-3">Place: ${card.place}</p>
-            <p class="card-text col-3">Capacity: ${card.capacity}</p>
-            <p class="card-text col-3">Estimate: ${card.estimate}</p>
+            <p class="card-text col-3">Category: ${cardFiltrada.category}</p>
+            <p class="card-text col-3">Place: ${cardFiltrada.place}</p>
+            <p class="card-text col-3">Capacity: ${cardFiltrada.capacity}</p>
+            <p class="card-text col-3">Estimate: ${cardFiltrada.estimate}</p>
             </div>
-            <p class="card-text text-primary">Price: $ ${card.price}</p>
+            <p class="card-text text-primary">Price: $ ${cardFiltrada.price}</p>
           </div>
         </div>
       </div>
     </div>
       `;}
       else{
-        space.innerHTML=`
+        mainCards.innerHTML=`
         <div class="card m-4 bg-dark text-light" >
         <div class="row">
             <div class="col-md-4 d-flex justify-content-center">
-                <img src="${card.image}" class="img-fluid rounded-start imagenCards" alt="${card.name}">
+                <img src="${cardFiltrada.image}" class="img-fluid rounded-start imagenCards" alt="${cardFiltrada.name}">
             </div>
           <div class="col-md-8">
             <div class="card-body text-center">
-              <h3 class="card-title">${card.name}</h3>
-              <p class="card-text">${card.description}</p>
+              <h3 class="card-title">${cardFiltrada.name}</h3>
+              <p class="card-text">${cardFiltrada.description}</p>
               <div class="row gy-5">
-              <p class="card-text col-4">Category: ${card.category}</p>
-              <p class="card-text col-4">Place: ${card.place}</p>
-              <p class="card-text col-4">Capacity: ${card.capacity}</p>
+              <p class="card-text col-4">Category: ${cardFiltrada.category}</p>
+              <p class="card-text col-4">Place: ${cardFiltrada.place}</p>
+              <p class="card-text col-4">Capacity: ${cardFiltrada.capacity}</p>
               </div>
-              <p class="card-text text-primary">Price: $ ${card.price}</p>
+              <p class="card-text text-primary">Price: $ ${cardFiltrada.price}</p>
             </div>
           </div>
         </div>
       </div>
         `;}
-}
-incertarEventos(cardFiltrada,mainCards);
+
+})
