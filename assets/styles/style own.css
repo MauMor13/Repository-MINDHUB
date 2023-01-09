@@ -31,3 +31,6 @@ table{
 .imagenCards{
     min-height: 100%;
 }
+.color_td{
+    color: rgb(207, 253, 4);
+}

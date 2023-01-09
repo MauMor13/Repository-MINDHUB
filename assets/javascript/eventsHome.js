@@ -7,12 +7,11 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")//recuperar data por fetch
 .then(res=>{
   todasLasCards=res;
   incertarCheckbox(checkBox,todasLasCards.events);
-  filtroCrusados();
+  filtroCrusados();//llamado de funcion para iniciar con 14 cards
   checkBox.addEventListener('change',filtroCrusados);//escucha eventos changue
   buscarCards.addEventListener('input',filtroCrusados);//escucha eventos input busqueda
 })
 //funcion para checkbox dinamico
-incertarCheckbox(checkBox,todasLasCards);
 function incertarCheckbox(lugarDelDom,todasLasCards){
   let template="";
   let categorias=todasLasCards.map((todasLasCards)=>todasLasCards.category);
@@ -38,8 +37,6 @@ function filtroPorCategoria(cardsFiltradas){
 function filtroPorBuscar(entradaDeBusqueda,todasLasCards){
   return todasLasCards.filter(cards=>cards.name.toLowerCase().includes(entradaDeBusqueda.value.toLowerCase()))
 }
-//llamado de funcion para iniciar con 14 cards
-filtroCrusados();
 //funcion de filtrado crusado
 function filtroCrusados(){
   let filtroPorBusqueda=filtroPorBuscar(buscarCards,todasLasCards.events);
@@ -68,6 +65,5 @@ function incertarEventos(cards,lugarDelDom){
   }
   if(template=="")
   template='<h3 class="text-center mt-4">No Matches Found<h3>';
-
   lugarDelDom.innerHTML=template;
 }
