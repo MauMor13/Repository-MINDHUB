@@ -8,10 +8,24 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")//recuperar data por fetch
 .then(data=>data.json())
 .then(datos=>{
     dataDeCars=datos;
+    dataDeCars.events.push({
+        assistance: 42756,
+        capacity: 45000,
+        category: "Food Fair",
+        date: "2021-12-12",
+        description: "Enjoy your favourite dishes, from different countries, in a unique event for the whole family.",
+        image: "https://i.postimg.cc/Fs03hQDt/Collectivities-Party.jpg",
+        name: "Collectivities Party",
+        place: "Room A",
+        price: 5,
+        __v: 0,
+        _id: "5639c723b992482e5f2834be9",
+    });
     let todasLasEstadisticas=[];
     for (const card of dataDeCars.events) {
         todasLasEstadisticas.push(
             {
+                aux_incremento:1,
                 esti_asis : card.date < dataDeCars.currentDate ? 'assistance':'estimate',
                 nombreEvento : card.name,
                 categoria : card.category,
@@ -24,12 +38,9 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")//recuperar data por fetch
     }
     let cardsPasadas=todasLasEstadisticas.filter(card=>card.fecha=='past').sort();
     let cardsPorVenir=todasLasEstadisticas.filter(card=>card.fecha=='upcoming').sort();
-    
-    console.log(cardsPasadas);
-    console.log(todasLasEstadisticas);
     imprimirSeccionUno(menor_mayorAsistencia(todasLasEstadisticas),eventosEstaticos);
-    imprimirSeccionesDosTres(cardsPasadas,eventosPasados);
-    imprimirSeccionesDosTres(cardsPorVenir,eventosPorVenir);
+    imprimirSeccionesDosTres(reductora(cardsPasadas),eventosPasados);
+    imprimirSeccionesDosTres(reductora(cardsPorVenir),eventosPorVenir);
 })
 .catch(err=>console.log(err));
 function menor_mayorAsistencia(todasLasEstadisticas){
@@ -53,4 +64,23 @@ function imprimirSeccionesDosTres(cards,lugarEnTabla){
                     </tr>`
     }
     lugarEnTabla.innerHTML+=template;
+}
+function reductora(reducirCards){
+    let reducidas={};
+    for(let card of reducirCards) {
+        if (!Object.hasOwn(reducidas,card.categoria))
+        {
+        reducidas[card.categoria]={...card};}
+        else
+        {
+        reducidas[card.categoria].porcentaje+=card.porcentaje;
+        reducidas[card.categoria].ganancias+=card.ganancias;
+        reducidas[card.categoria].aux_incremento++;
+        }
+    };
+    reducidas=Object.values(reducidas);
+    reducidas.forEach(card=>{
+        card.porcentaje/=card.aux_incremento;
+    })
+    return reducidas;
 }
