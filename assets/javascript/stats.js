@@ -38,7 +38,7 @@ fetch("https://mindhub-xj03.onrender.com/api/amazing")//recuperar data por fetch
     }
     let cardsPasadas=todasLasEstadisticas.filter(card=>card.fecha=='past').sort();//filtrar pasadas
     let cardsPorVenir=todasLasEstadisticas.filter(card=>card.fecha=='upcoming').sort();//filtrar futuras
-    imprimirSeccionUno(todasLasEstadisticas,eventosEstaticos);//llamado de imprecion staticas
+    imprimirSeccionUno(cardsPasadas,eventosEstaticos);//llamado de imprecion staticas
     imprimirSeccionesDosTres(reductora(cardsPasadas),eventosPasados);//llamado de impresion pasadas
     imprimirSeccionesDosTres(reductora(cardsPorVenir),eventosPorVenir);//llamado de impresion futuras
 })
